@@ -1,13 +1,13 @@
-const { Categoria } = require("../models");
+const { Categoria } = require("../models/categoriasModels");
 
 exports.getAll = async (req, res) => {
   res.json(await Categoria.findAll());
 };
 
 exports.getById = async (req, res) => {
-  const item = await Categoria.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Categoria não encontrada" });
-  res.json(item);
+  const dado = await Categoria.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Categoria não encontrada" });
+  res.json(dado);
 };
 
 exports.create = async (req, res) => {
@@ -15,15 +15,15 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const item = await Categoria.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Categoria não encontrada" });
-  await item.update(req.body);
-  res.json(item);
+  const dado = await Categoria.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Categoria não encontrada" });
+  await dado.update(req.body);
+  res.json(dado);
 };
 
 exports.remove = async (req, res) => {
-  const item = await Categoria.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Categoria não encontrada" });
-  await item.destroy();
-  res.json({ msg: "Removida" });
+  const dado = await Categoria.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Categoria não encontrada" });
+  await dado.destroy();
+  res.json({ msg: "Removido" });
 };

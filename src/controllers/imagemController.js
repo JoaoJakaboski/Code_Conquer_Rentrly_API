@@ -1,13 +1,13 @@
-const { Imagem } = require("../models");
+const { Imagem } = require("../models/imagensModels");
 
 exports.getAll = async (req, res) => {
   res.json(await Imagem.findAll());
 };
 
 exports.getById = async (req, res) => {
-  const item = await Imagem.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Imagem não encontrada" });
-  res.json(item);
+  const dado = await Imagem.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Imagem não encontrada" });
+  res.json(dado);
 };
 
 exports.create = async (req, res) => {
@@ -15,15 +15,15 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const item = await Imagem.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Imagem não encontrada" });
-  await item.update(req.body);
-  res.json(item);
+  const dado = await Imagem.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Imagem não encontrada" });
+  await dado.update(req.body);
+  res.json(dado);
 };
 
 exports.remove = async (req, res) => {
-  const item = await Imagem.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Imagem não encontrada" });
-  await item.destroy();
-  res.json({ msg: "Removida" });
+  const dado = await Imagem.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Imagem não encontrada" });
+  await dado.destroy();
+  res.json({ msg: "Removido" });
 };

@@ -1,18 +1,18 @@
-const { Produto, Usuario, Categoria, Imagem, Endereco, VendaAluguel } = require("../models");
+const { Produto, Usuario, Categoria, Imagem, Endereco, VendaAluguel } = require("../models/produtosModels");
 
 exports.getAll = async (req, res) => {
-  const produtos = await Produto.findAll({
+  const dados = await Produto.findAll({
     include: [Usuario, Categoria, Imagem, Endereco, VendaAluguel]
   });
-  res.json(produtos);
+  res.json(dados);
 };
 
 exports.getById = async (req, res) => {
-  const produto = await Produto.findByPk(req.params.id, {
+  const dado = await Produto.findByPk(req.params.id, {
     include: [Usuario, Categoria, Imagem, Endereco, VendaAluguel]
   });
-  if (!produto) return res.status(404).json({ msg: "Produto não encontrado" });
-  res.json(produto);
+  if (!dado) return res.status(404).json({ msg: "Produto não encontrado" });
+  res.json(dado);
 };
 
 exports.create = async (req, res) => {
@@ -20,15 +20,15 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const produto = await Produto.findByPk(req.params.id);
-  if (!produto) return res.status(404).json({ msg: "Produto não encontrado" });
-  await produto.update(req.body);
-  res.json(produto);
+  const dado = await Produto.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Produto não encontrado" });
+  await dado.update(req.body);
+  res.json(dado);
 };
 
 exports.remove = async (req, res) => {
-  const produto = await Produto.findByPk(req.params.id);
-  if (!produto) return res.status(404).json({ msg: "Produto não encontrado" });
-  await produto.destroy();
-  res.json({ msg: "Produto removido" });
+  const dado = await Produto.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Produto não encontrado" });
+  await dado.destroy();
+  res.json({ msg: "Removido" });
 };

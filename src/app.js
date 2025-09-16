@@ -1,11 +1,30 @@
 const express = require('express');
 const cors = require('cors');
 
-// Importação das rotas
-
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Importação das rotas
+const usuarioRoutes = require("./routes/usuarioRoutes");
+/*const tipoUsuarioRoutes = require("./routes/tipoUsuarioRoutes");
+const categoriaRoutes = require("./routes/categoriaRoutes");
+const produtoRoutes = require("./routes/produtoRoutes");
+const imagemRoutes = require("./routes/imagemRoutes");
+const enderecoRoutes = require("./routes/enderecoRoutes");
+const vendaAluguelRoutes = require("./routes/vendaAluguelRoutes");*/
+
+app.use("/usuarios", usuarioRoutes);
+/*app.use("/tipos-usuario", tipoUsuarioRoutes);
+app.use("/categorias", categoriaRoutes);
+app.use("/produtos", produtoRoutes);
+app.use("/imagens", imagemRoutes);
+app.use("/enderecos", enderecoRoutes);
+app.use("/venda-aluguel", vendaAluguelRoutes);*/
+
+
+
+
 
 app.get('/health/', (req, res) => {
     res.json({ 

@@ -1,29 +1,29 @@
-const { VendaAluguel } = require("../models");
+const { Endereco } = require("../models/enderecosModels");
 
 exports.getAll = async (req, res) => {
-  res.json(await VendaAluguel.findAll());
+  res.json(await Endereco.findAll());
 };
 
 exports.getById = async (req, res) => {
-  const item = await VendaAluguel.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Venda/Aluguel não encontrado" });
-  res.json(item);
+  const dado = await Endereco.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Endereço não encontrado" });
+  res.json(dado);
 };
 
 exports.create = async (req, res) => {
-  res.json(await VendaAluguel.create(req.body));
+  res.json(await Endereco.create(req.body));
 };
 
 exports.update = async (req, res) => {
-  const item = await VendaAluguel.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Venda/Aluguel não encontrado" });
-  await item.update(req.body);
-  res.json(item);
+  const dado = await Endereco.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Endereço não encontrado" });
+  await dado.update(req.body);
+  res.json(dado);
 };
 
 exports.remove = async (req, res) => {
-  const item = await VendaAluguel.findByPk(req.params.id);
-  if (!item) return res.status(404).json({ msg: "Venda/Aluguel não encontrado" });
-  await item.destroy();
+  const dado = await Endereco.findByPk(req.params.id);
+  if (!dado) return res.status(404).json({ msg: "Endereço não encontrado" });
+  await dado.destroy();
   res.json({ msg: "Removido" });
 };
