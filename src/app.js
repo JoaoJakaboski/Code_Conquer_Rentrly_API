@@ -1,15 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { specs, swaggerUi } = require('./swagger'); // Importar o Swagger
 
-const usuariosRoutes = require('./routes/usuariosRoutes');
-const acessosRoutes = require('./routes/acessosRoutes');
-const unidadesRoutes = require('./routes/unidadesRoutes');
-const setoresRoutes = require('./routes/setoresRoutes');
-const patrimoniosRoutes = require('./routes/patrimoniosRoutes');
-const marcasRoutes = require('./routes/marcasRoutes');
-const ordensDeServicoRoutes = require('./routes/ordensDeServicoRoutes');
-const usuariosEAcessosRoutes = require('./routes/usuariosEAcessosRoutes');
+// Importação das rotas
 
 const app = express();
 app.use(cors());
@@ -23,15 +15,6 @@ app.get('/health/', (req, res) => {
     });
 });
 
-//Rotas da API
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/acessos', acessosRoutes);
-app.use('/api/unidades', unidadesRoutes);
-app.use('/api/setores', setoresRoutes);
-app.use('/api/patrimonios', patrimoniosRoutes);
-app.use('/api/marcas', marcasRoutes);
-app.use('/api/ordensdeservico', ordensDeServicoRoutes);
-app.use('/api/usuariosEAcessos', usuariosEAcessosRoutes);
 
 // Middleware para rotas não encontradas
 app.use('*', (req, res) => {
