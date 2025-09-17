@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
 app.use(cors());
@@ -10,7 +10,7 @@ const categoriasRoutes = require("./routes/categoriasRoutes");
 // const usuarioRoutes = require("./routes/usuarioRoutes");
 // const tipoUsuarioRoutes = require("./routes/tipoUsuarioRoutes");
 // const produtoRoutes = require("./routes/produtoRoutes");
-// const imagemRoutes = require("./routes/imagemRoutes");
+const imagemRoutes = require("./routes/imagemRoutes");
 // const enderecoRoutes = require("./routes/enderecoRoutes");
 // const vendaAluguelRoutes = require("./routes/vendaAluguelRoutes");
 
@@ -18,36 +18,35 @@ app.use("/categorias", categoriasRoutes);
 // app.use("/usuarios", usuarioRoutes);
 // app.use("/tipos-usuario", tipoUsuarioRoutes);
 // app.use("/produtos", produtoRoutes);
-// app.use("/imagens", imagemRoutes);
+app.use("/imagens", imagemRoutes);
 // app.use("/enderecos", enderecoRoutes);
 // app.use("/venda-aluguel", vendaAluguelRoutes);*/
 
-
-app.get('/health/', (req, res) => {
-    res.json({ 
-        status: 'OK', 
-        timestamp: new Date().toISOString(),
-        version: '1.0.0'
-    });
+app.get("/health/", (req, res) => {
+  res.json({
+    status: "OK",
+    timestamp: new Date().toISOString(),
+    version: "1.0.0",
+  });
 });
 
-
 // Middleware para rotas não encontradas
-app.use('*', (req, res) => {
-    res.status(404).json({ 
-        error: 'Rota não encontrada',
-        path: req.originalUrl,
-        method: req.method 
-    });
+app.use("*", (req, res) => {
+  res.status(404).json({
+    error: "Rota não encontrada",
+    path: req.originalUrl,
+    method: req.method,
+  });
 });
 
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
-    console.error('Erro:', err.stack);
-    res.status(500).json({ 
-        error: 'Erro interno do servidor',
-        message: process.env.NODE_ENV === 'development' ? err.message : 'Algo deu errado!'
-    });
+  console.error("Erro:", err.stack);
+  res.status(500).json({
+    error: "Erro interno do servidor",
+    message:
+      process.env.NODE_ENV === "development" ? err.message : "Algo deu errado!",
+  });
 });
 
 module.exports = app;
