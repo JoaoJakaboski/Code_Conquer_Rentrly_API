@@ -5,5 +5,6 @@ const usuariosController = require('../controllers/usuariosController');
 router.get('/', usuariosController.buscarUsuarios);
 router.post('/', usuariosController.adicionarUsuario);
 router.post('/login', usuariosController.efetuarLogin);
+router.put('/foto/:id', usuariosController.atualizarFotoPerfil);
 
 module.exports = router;

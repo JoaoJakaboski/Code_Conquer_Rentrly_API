@@ -56,3 +56,21 @@ exports.adicionarUsuario = async (req, res) => {
         res.status(500).json({ error: 'Erro ao adicionar usuário' });
     }
 };
+
+exports.atualizarFotoPerfil = async (req, res) => {
+    const { id } = req.params;
+    const { fotoPerfil } = req.body;
+    if (!fotoPerfil) {
+        return res.status(400).json({ error: 'Foto de perfil é obrigatória' });
+    }
+    try {
+        const usuarioAtualizado = await usuariosModels.alterarFotoPerfil(id, fotoPerfil);
+        if (!usuarioAtualizado) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+        res.status(200).json(usuarioAtualizado);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao atualizar foto de perfil' });
+    }
+};

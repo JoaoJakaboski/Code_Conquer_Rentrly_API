@@ -30,3 +30,11 @@ exports.deletarUsuario = async (id) => {
     );
     return result.rows[0];
 };
+
+exports.alterarFotoPerfil = async (id, fotoPerfil) => {
+    const result = await pool.query(
+        'UPDATE usuarios SET "fotoPerfil" = $1 WHERE "idUsuario" = $2 RETURNING *',
+        [fotoPerfil, id]
+    );
+    return result.rows[0];
+};
