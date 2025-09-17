@@ -9,7 +9,7 @@ exports.buscarEnderecos = async () => {
 
 exports.adicionarEndereco = async (cep, rua, numero, bairro, cidade, uf, complemento) => {
     const result = await pool.query(
-        'INSERT INTO enderecos (cep, rua, numero, bairro, cidade, uf, complemento) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+        'INSERT INTO enderecos ("cepEndereco", "ruaEndereco", "numeroEndereco", "bairroEndereco", "cidadeEndereco", "ufEndereco", "complementoEndereco") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
         [cep, rua, numero, bairro, cidade, uf, complemento]
     );
     return result.rows[0];
