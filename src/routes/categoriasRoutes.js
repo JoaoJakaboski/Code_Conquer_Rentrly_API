@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const categoriasController = require('../controllers/categoriasController');
-const { route } = require('../app');
 // const token = require('../middlewares/authMiddleWare');
 
 
