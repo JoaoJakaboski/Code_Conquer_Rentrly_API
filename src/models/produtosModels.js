@@ -1,14 +1,51 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+// idProduto INTEGER PRIMARY KEY,
+// idUsuario INTEGER NOT NULL,
+// idCategoria INTEGER NOT NULL,
+// nomeProduto VARCHAR NOT NULL,
+// precoProduto NUMERIC NOT NULL,
+// idVendaAluguel INTEGER NOT NULL,
+// idEndereco INTEGER,
+// descricaoProduto VARCHAR
 
-const Produto = sequelize.define("produtos", {
-  idProduto: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  idUsuario: DataTypes.INTEGER,
-  idCategoria: DataTypes.INTEGER,
-  nomeProduto: DataTypes.STRING,
-  precoProduto: DataTypes.STRING,
-  idVendaAluguel: DataTypes.INTEGER,
-  idEndereco: DataTypes.INTEGER
-}, { timestamps: false });
+const pool = require('../config/db');
 
-module.exports = Produto;
+exports.buscarProdutos = async () => {
+    const result = await pool.query(
+        'SELECT * FROM produtos'
+    );
+    return result.rows;
+};
+
+exports.adicionarProduto = async(idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao) => {
+    const result = await pool.query(
+        `INSERT INTO produtos 
+        ("idUsuario", "idCategoria", "nomeProduto", "precoProduto", "idVendaAluguel", "idEndereco", "descricaoProduto") VALUES
+        ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+        [idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao]
+    );
+    return result.rows[0];
+};
+
+exports.atualizarProduto = async(id, idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao) => {
+    const result = await pool.query(
+        `UPDATE produtos SET 
+        "idUsuario" = $1,
+        "idCategoria" = $2,
+        "nomeProduto" = $3,
+        "precoProduto" = $4,
+        "idVendaAluguel" = $5,
+        "idEndereco" = $6,
+        "descricaoProduto" = $7
+        WHERE "idProduto" = $8 RETURNING *`,
+        [idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, id]
+    );
+    return result.rows[0];
+};
+
+exports.deletarProduto = async (id) => {
+    const result = await pool.query(
+        'DELETE FROM produtos WHERE "idProduto" = $1 RETURNING *',
+        [id]
+    );
+    return result.rows[0];
+};

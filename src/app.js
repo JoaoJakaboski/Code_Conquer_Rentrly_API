@@ -9,16 +9,16 @@ app.use(express.json());
 const categoriasRoutes = require("./routes/categoriasRoutes");
 const enderecosRoutes = require("./routes/enderecosRoutes");
 const usuariosRoutes = require("./routes/usuariosRoutes");
+const produtosRoutes = require("./routes/produtosRoutes");
 // const tipoUsuarioRoutes = require("./routes/tipoUsuarioRoutes");
-// const produtoRoutes = require("./routes/produtoRoutes");
 // const imagemRoutes = require("./routes/imagemRoutes");
 // const vendaAluguelRoutes = require("./routes/vendaAluguelRoutes");
 
 app.use("/categorias", categoriasRoutes);
 app.use("/enderecos", enderecosRoutes);
 app.use("/usuarios", usuariosRoutes);
+app.use("/produtos", produtosRoutes);
 // app.use("/tipos-usuario", tipoUsuarioRoutes);
-// app.use("/produtos", produtoRoutes);
 // app.use("/imagens", imagemRoutes);
 // app.use("/venda-aluguel", vendaAluguelRoutes);*/
 
