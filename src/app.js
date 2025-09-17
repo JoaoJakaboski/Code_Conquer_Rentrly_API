@@ -7,19 +7,25 @@ app.use(express.json());
 
 // Importação das rotas
 const categoriasRoutes = require("./routes/categoriasRoutes");
-// const usuarioRoutes = require("./routes/usuarioRoutes");
+const enderecosRoutes = require("./routes/enderecosRoutes");
+const usuariosRoutes = require("./routes/usuariosRoutes");
+const produtosRoutes = require("./routes/produtosRoutes");
 // const tipoUsuarioRoutes = require("./routes/tipoUsuarioRoutes");
 // const produtoRoutes = require("./routes/produtoRoutes");
 const imagemRoutes = require("./routes/imagemRoutes");
 // const enderecoRoutes = require("./routes/enderecoRoutes");
+// const imagemRoutes = require("./routes/imagemRoutes");
 // const vendaAluguelRoutes = require("./routes/vendaAluguelRoutes");
 
 app.use("/categorias", categoriasRoutes);
-// app.use("/usuarios", usuarioRoutes);
+app.use("/enderecos", enderecosRoutes);
+app.use("/usuarios", usuariosRoutes);
+app.use("/produtos", produtosRoutes);
 // app.use("/tipos-usuario", tipoUsuarioRoutes);
 // app.use("/produtos", produtoRoutes);
 app.use("/imagens", imagemRoutes);
 // app.use("/enderecos", enderecoRoutes);
+// app.use("/imagens", imagemRoutes);
 // app.use("/venda-aluguel", vendaAluguelRoutes);*/
 
 app.get("/health/", (req, res) => {
