@@ -19,13 +19,13 @@ router.post("/upload-teste", upload.single("imagem"), (req, res) => {
 });
 
 router.post(
-  "/produtos/:idProduto/imagens",
+  "/:idProduto",
   upload.single("imagem"),
   ImagemController.upload
 );
 
-router.get("/produtos/:idProduto/imagens", ImagemController.listarPorProduto);
+router.get("/:idProduto", ImagemController.listarPorProduto);
 
-router.delete("/imagens/:idImagem", ImagemController.deletar);
+router.delete("/:idImagem", ImagemController.deletar);
 
 module.exports = router;
