@@ -8,6 +8,7 @@ app.use(express.json());
 // Importação das rotas
 const categoriasRoutes = require("./routes/categoriasRoutes");
 const enderecosRoutes = require("./routes/enderecosRoutes");
+const produtoRoutes = require("./routes/produtoRoutes");
 // const usuarioRoutes = require("./routes/usuarioRoutes");
 // const tipoUsuarioRoutes = require("./routes/tipoUsuarioRoutes");
 // const produtoRoutes = require("./routes/produtoRoutes");
@@ -16,6 +17,7 @@ const enderecosRoutes = require("./routes/enderecosRoutes");
 
 app.use("/categorias", categoriasRoutes);
 app.use("/enderecos", enderecosRoutes);
+app.use("/produtos", produtoRoutes);
 // app.use("/usuarios", usuarioRoutes);
 // app.use("/tipos-usuario", tipoUsuarioRoutes);
 // app.use("/produtos", produtoRoutes);
