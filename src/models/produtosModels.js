@@ -16,17 +16,17 @@ exports.buscarProdutos = async () => {
     return result.rows;
 };
 
-exports.adicionarProduto = async(idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao) => {
+exports.adicionarProduto = async(idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco) => {
     const result = await pool.query(
         `INSERT INTO produtos 
-        ("idUsuario", "idCategoria", "nomeProduto", "precoProduto", "idVendaAluguel", "idEndereco", "descricaoProduto") VALUES
-        ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-        [idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao]
+        ("idUsuario", "idCategoria", "nomeProduto", "precoProduto", "idVendaAluguel", "idEndereco", "descricaoProduto", "unidadeDePreco") VALUES
+        ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+        [idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco]
     );
     return result.rows[0];
 };
 
-exports.atualizarProduto = async(id, idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao) => {
+exports.atualizarProduto = async(id, idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco) => {
     const result = await pool.query(
         `UPDATE produtos SET 
         "idUsuario" = $1,
@@ -35,9 +35,10 @@ exports.atualizarProduto = async(id, idUsuario, idCategoria, nome, preco, idVend
         "precoProduto" = $4,
         "idVendaAluguel" = $5,
         "idEndereco" = $6,
-        "descricaoProduto" = $7
-        WHERE "idProduto" = $8 RETURNING *`,
-        [idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, id]
+        "descricaoProduto" = $7,
+        "unidadeDePreco" = $8
+        WHERE "idProduto" = $9 RETURNING *`,
+        [idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco, id]
     );
     return result.rows[0];
 };
