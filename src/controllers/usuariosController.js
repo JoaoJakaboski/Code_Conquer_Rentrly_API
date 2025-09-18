@@ -67,13 +67,11 @@ exports.adicionarUsuario = async (req, res) => {
   }
   try {
     const usuarios = await usuariosModels.buscarUsuarios();
-    const usuarioExistente = usuarios.find(
-      (u) => u.emailUsuario === email || u.cpfCNPJ === cpfCNPJ
-    );
+    const usuarioExistente = usuarios.find(u => u.emailUsuario === email);
     if (usuarioExistente) {
       return res
         .status(409)
-        .json({ error: "Usuário com esse email ou CPF/CNPJ já existe" });
+        .json({ error: "Email já cadastrado" });
     }
     const senhaHash = await bcrypt.hash(senha, 10);
     const novoUsuario = await usuariosModels.adicionarUsuario(
@@ -139,4 +137,18 @@ exports.atualizarFotoPerfil = async (req, res) => {
     console.error("Erro ao atualizar foto de perfil:", error);
     res.status(500).json({ error: "Erro interno ao atualizar foto de perfil" });
   }
+};
+
+exports.verificarSeEmailCadastrado = async (req, res) => {
+    const { email } = req.params;
+    try {
+        const usuario = await usuariosModels.buscarUsuarioPorEmail(email);
+        if (usuario) {
+            return res.status(200).json({ cadastrado: true });
+        }
+        res.status(200).json({ cadastrado: false });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao verificar email' });
+    }   
 };

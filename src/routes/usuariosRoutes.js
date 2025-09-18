@@ -8,6 +8,7 @@ const upload = multer({ storage });
 router.get("/", usuariosController.buscarUsuarios);
 router.post("/", usuariosController.adicionarUsuario);
 router.post("/login", usuariosController.efetuarLogin);
+router.get('/:email', usuariosController.verificarSeEmailCadastrado);
 router.put(
   "/foto/:id",
   upload.single("fotoPerfil"),

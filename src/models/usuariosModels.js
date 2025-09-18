@@ -53,3 +53,19 @@ exports.alterarFotoPerfil = async (id, fotoPerfil) => {
   );
   return result.rows[0];
 };
+
+exports.buscarUsuarioPorEmail = async (email) => {
+    const result = await pool.query(
+        'SELECT * FROM usuarios WHERE "emailUsuario" = $1',
+        [email]
+    );
+    return result.rows[0];
+};
+
+exports.buscarUsuarioPorId = async (id) => {
+    const result = await pool.query(
+        'SELECT * FROM usuarios WHERE "idUsuario" = $1',
+        [id]
+    );
+    return result.rows[0];
+}
