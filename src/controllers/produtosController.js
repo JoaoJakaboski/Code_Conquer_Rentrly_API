@@ -20,7 +20,7 @@ exports.buscarProdutos = async (req, res) => {
 };
 
 exports.adicionarProduto = async (req, res) => {
-    const { idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao } = req.body;
+    const { idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco } = req.body;
     if (!idUsuario || isNaN(idUsuario)) {
         return res.status(400).json({ error: 'ID do usuário inválido' });
     }
@@ -36,9 +36,12 @@ exports.adicionarProduto = async (req, res) => {
     if (!idVendaAluguel || isNaN(idVendaAluguel)) {
         return res.status(400).json({ error: 'ID de venda/aluguel inválido' });
     }
+    if (!unidadeDePreco) {
+        return res.status(400).json({ error: 'Unidade de preço do produto é obrigatório' });
+    }
 
     try {
-        const novoProduto = await categoriasModel.adicionarProduto(idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao);
+        const novoProduto = await categoriasModel.adicionarProduto(idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco);
         res.status(201).json(novoProduto);
     } catch (error) {
         console.error(error);
@@ -48,7 +51,7 @@ exports.adicionarProduto = async (req, res) => {
 
 exports.atualizarProduto = async (req, res) => {
     const { id } = req.params;
-    const { idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao } = req.body;
+    const { idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco } = req.body;
     if (!id || isNaN(id)) {
         return res.status(400).json({ error: 'ID do produto inválido' });
     }
@@ -67,9 +70,12 @@ exports.atualizarProduto = async (req, res) => {
     if (!idVendaAluguel || isNaN(idVendaAluguel)) {
         return res.status(400).json({ error: 'ID de venda/aluguel inválido' });
     }
+    if (!unidadeDePreco) {
+        return res.status(400).json({ error: 'Unidade de preço do produto é obrigatório' });
+    }
 
     try {
-        const produtoAtualizado = await categoriasModel.atualizarProduto(id, idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao);
+        const produtoAtualizado = await categoriasModel.atualizarProduto(id, idUsuario, idCategoria, nome, preco, idVendaAluguel, idEndereco, descricao, unidadeDePreco);
         if (!produtoAtualizado) {
             return res.status(404).json({ error: 'Produto não encontrado' });
         }
